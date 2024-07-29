@@ -24,7 +24,7 @@ def get_terminal_dimensions(align = False):
     return [terminal_width if not align else terminal_width-8, terminal_height]
 
 cancel_first_line = f' | Escribe "{colored_text("X", 32)}" para terminar Script'
-created_by = f' Creado por {colored_text('KilzaNiko', 36)} - IconPack Downloader: {colored_text("icon-icons.com", 32)}'.center(get_terminal_dimensions()[0] + 9, " ")
+created_by = f' Creado por {colored_text('KilzaNiko', 36)} - IconPack Downloader {colored_text("v1.0.1", 35)} - Pagina: {colored_text("icon-icons.com", 32)}'.center(get_terminal_dimensions()[0] + 9, " ")
 created_by_line = (colored_text("-", 36) * (len(created_by) - 9)).center(get_terminal_dimensions()[0], " ")
 first_line = ""
 divisor = ""
