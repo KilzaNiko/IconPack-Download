@@ -290,7 +290,7 @@ async def generate_link_download(data_icons_pack, format, resolution='512'):
             pack_id=item['pack_id'],
             format= format,
             resolution=resolution,
-            icon_name=item['icon_name'].replace('-', '_').lower()
+            icon_name=item['icon_name'].replace(' ', '_').lower()
         )
         icon_urls.append(url)
         await asyncio.sleep(0)  # Yield control to the event loop
@@ -364,6 +364,8 @@ async def download_icons_to_zip(icon_urls):
 
                     # Limpiar el nombre del archivo
                     clean_name = re.sub(r'&file=|_icon_\d+', '', file_name)
+                    clean_name = clean_name.replace('_', '-')  # Aquí se reemplazan los guiones bajos por guiones
+                    clean_name = clean_name.replace(' ', '-')  # Aquí se reemplazan los espacios por guiones
 
                     # Verificar si el archivo ya existe en el ZIP y ajustar el nombre si es necesario
                     original_name, ext = os.path.splitext(clean_name)
