@@ -2,7 +2,6 @@ import requests
 import re
 import zipfile
 import os
-import ctypes
 import shutil
 import aiohttp
 import asyncio
@@ -24,7 +23,7 @@ def get_terminal_dimensions(align = False):
     return [terminal_width if not align else terminal_width-8, terminal_height]
 
 cancel_first_line = f' | Escribe "{colored_text("X", 32)}" para terminar Script'
-created_by = f' Creado por {colored_text('KilzaNiko', 36)} - IconPack Downloader {colored_text("v1.0.1", 35)} - Pagina: {colored_text("icon-icons.com", 32)}'.center(get_terminal_dimensions()[0] + 9, " ")
+created_by = f' Creado por {colored_text('KilzaNiko', 36)} - IconPack Downloader {colored_text("v1.0.2", 35)} - Pagina: {colored_text("icon-icons.com", 32)}'.center(get_terminal_dimensions()[0] + 9, " ")
 created_by_line = (colored_text("-", 36) * (len(created_by) - 9)).center(get_terminal_dimensions()[0], " ")
 first_line = ""
 divisor = ""
@@ -235,16 +234,14 @@ async def fetch_page(session, url):
 
 def verify_url(url):
     # Verificar si la URL tiene el formato correcto y proviene de "icon-icons.com"
-    url_pattern = re.compile(
-         r'^(https://)?icon-icons\.com(/[^/]+)?/pack/[a-zA-Z0-9-]+/\d+$'
-    )
+    url_pattern = re.compile(r'^(https://)?icon-icons\.com(/[^/]+)?/pack/[a-zA-Z0-9-+&]+/\d+$')
 
     if not url_pattern.match(url):
         return False, colored_text('La URL no tiene el formato correcto o no proviene de icon-icons.com' if not url == "" else 'No ha ingresado ningun URL', 33)
 
+    # Ignorar caracteres especiales y caracteres no permitidos en la URL
     base_url = re.sub(r'(&page=\d+)', '', url)
-    if not base_url.startswith('https://'):
-        base_url = 'https://' + base_url
+    if not base_url.startswith('https://'): base_url = 'https://' + base_url
     base_url = re.sub(r'^https://www\.', 'https://', base_url)
 
     return True, base_url
@@ -442,9 +439,9 @@ def get_available_formats_and_resolutions(soup):
 
     return formats, resolutions
 
-async def get_formats_and_resolutions_from_page(url_fi):
+async def get_formats_and_resolutions_from_page(first_icon_url):
     async with aiohttp.ClientSession() as session:
-        soup = await fetch_page(session, url_fi)
+        soup = await fetch_page(session, first_icon_url)
         return get_available_formats_and_resolutions(soup)
 
 ######################################################################################
@@ -473,7 +470,7 @@ def clear_console(cant = 0):
     if cant == 0: return os.system('cls' if os.name == 'nt' else 'clear')
     # Imprimir líneas en blanco para sobrescribir el contenido actual
     for _ in range(cant):
-        print("\033[A\033[K", end="")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 async def download_icons_main():
     global first_line
