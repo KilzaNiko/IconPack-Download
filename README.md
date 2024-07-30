@@ -3,7 +3,7 @@
 <h1 align="center">Descargador de Iconos desde <a href="https://icon-icons.com/">icon-icons.com</a></h1>
 
 <p align="justify">
-Este programa, desarrollado en <img src="https://img.shields.io/badge/PYTHON-3.12.3-blue" alt="version" style="pointer-events: none; cursor: default;">, permite descargar iconos desde packs de iconos en la página <a href="https://icon-icons.com/">icon-icons.com</a>. Proporciona opciones para seleccionar el formato y la resolución de los iconos, así como las páginas específicas del pack de las que se desea descargar los iconos.
+Este programa, desarrollado en <img src="https://img.shields.io/badge/PYTHON-3.12.3-blue" alt="version" style="pointer-events: none; cursor: default;">, permite descargar pack de iconos de la página <a href="https://icon-icons.com/">icon-icons.com</a>. Proporciona opciones para seleccionar el formato y la resolución de los iconos, así como las páginas específicas del pack de las que se desea descargar los iconos.
 </p>
 
 ## Descripción
